@@ -1,0 +1,12 @@
+ftl_gen
+*.fzone
+**/Listings/*
+*.d
+*.o
+*.lnp
+*.out
+*.dep
+*.uvguix.*
+*.uvgui.*
+*.build_log.htm
+
