@@ -296,11 +296,11 @@ attribute value (excluding the colon and vendor code suffix when present) of the
 attribute value of the <tt>mountedDevice</tt>.
 
 \note
-<b>Target Board Vendor</b> should match the <a href="../../Pack/html/pdsc_boards_pg.html#element_board">vendor</a>
+<b>Target Board Vendor</b> should match the <a href="https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/pdsc_boards_pg.html#element_board">vendor</a>
 attribute value (excluding the colon and vendor code suffix when present).
 
 \note
-<b>Target Board Name</b> should match the <a href="../../Pack/html/pdsc_boards_pg.html#element_board">name</a>
+<b>Target Board Name</b> should match the <a href="https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/pdsc_boards_pg.html#element_boardpdsc_boards_pg.html#element_board">name</a>
 attribute value.
 
 \note
