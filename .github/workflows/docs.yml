@@ -1,0 +1,125 @@
+name: Build Doxygen Documentation
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOXYGEN_VERSION: 1.9.6
+  DOXYGEN_URL: 'https://sourceforge.net/projects/doxygen/files/rel-{VERSION}/doxygen-{VERSION}.linux.bin.tar.gz/download'
+
+jobs:
+  documentation:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install packages
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo pip install LinkChecker
+    
+      - name: Cache Doxygen ${{ env.DOXYGEN_VERSION }}
+        id: cache-doxygen
+        uses: actions/cache@v3
+        with:
+          path: /opt/doxygen-${{ env.DOXYGEN_VERSION }}
+          key: doxygen-${{ env.DOXYGEN_VERSION }}-${{ runner.os }}
+  
+      - name: Download Doxygen ${{ env.DOXYGEN_VERSION }}
+        if: steps.cache-doxygen.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          wget -O doxygen.tgz $(sed -e 's/{VERSION}/${{ env.DOXYGEN_VERSION }}/g' <<< ${{ env.DOXYGEN_URL }})
+          sudo tar -C /opt -xf doxygen.tgz
+  
+      - name: Install Doxygen ${{ env.DOXYGEN_VERSION }}
+        if: env.DOXYGEN_VERSION != 'none'
+        shell: bash
+        run: |
+          sudo ln -s /opt/doxygen-${{ env.DOXYGEN_VERSION }}/bin/doxygen /usr/local/bin/
+          which doxygen
+          doxygen --version
+
+      - name: Generate doxygen
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "::add-matcher::.github/doxygen.json"
+          ./Documentation/Doxygen/gen_doc.sh
+          echo "::remove-matcher owner=doxygen::"
+  
+      - name: Run linkchecker
+        shell: bash
+        run: |
+          echo "::add-matcher::.github/linkchecker.json"
+          ./Documentation/Doxygen/check_links.sh
+          echo "::remove-matcher owner=linkchecker::"
+
+      - name: Archive documentation
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation
+          path: ./Documentation/html/
+          retention-days: 1
+          if-no-files-found: error
+  
+      - name: Archive documentation
+        if: (github.event_name == 'release' || github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        run: |
+          tar -cvjf /tmp/doc.tbz2 -C ./Documentation/html/ .
+
+      - uses: actions/checkout@v3
+        if: (github.event_name == 'release' || github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        with:
+          ref: gh-pages
+  
+      - name: Publish documentation
+        if: (github.event_name == 'release' || github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        run: |
+          rm -rf ${GITHUB_REF_NAME}
+          mkdir -p ${GITHUB_REF_NAME}
+          tar -xvjf /tmp/doc.tbz2 -C ${GITHUB_REF_NAME}
+          if ${{ github.event_name == 'release' }}; then
+            rm -f latest
+            ln -s ${GITHUB_REF_NAME} latest
+            MSG="release"
+          else
+            MSG="branch"
+          fi
+          .github/update_versions.sh
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update documentation for ${MSG} ${GITHUB_REF_NAME}"
+          git push
+  
+      - uses: actions/checkout@v3
+        if: (github.event_name == 'release' || github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        with:
+          ref: ${{ github.ref }}
+  
+      - name: Trigger GH-Pages deployment
+        if: (github.event_name == 'release' || github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run gh-pages.yml --ref gh-pages
+          if [ $? -ne 0 ]; then
+            echo "::notice::Failed to trigger GH-Pages deployment via workflow 'gh-pages.yml'!"
+          fi
+    
