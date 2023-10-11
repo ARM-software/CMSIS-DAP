@@ -288,11 +288,11 @@ Strings should match the listed attribute values from the corresponding CMSIS Bo
 If the Target is not known no string is returned (indicated by Len = 0).
 
 \note
-<b>Target Device Vendor</b> should match the <a href="../../Pack/html/pdsc_boards_pg.html#element_board_mountedDevice">Dvendor</a>
+<b>Target Device Vendor</b> should match the <a href="https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/pdsc_boards_pg.html#element_board_mountedDevice">Dvendor</a>
 attribute value (excluding the colon and vendor code suffix when present) of the <tt>mountedDevice</tt>.
 
 \note
-<b>Target Device Name</b> should match the <a href="../../Pack/html/pdsc_boards_pg.html#element_board_mountedDevice">Dname</a>
+<b>Target Device Name</b> should match the <a href="https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/pdsc_boards_pg.html#element_board_mountedDevice">Dname</a>
 attribute value of the <tt>mountedDevice</tt>.
 
 \note

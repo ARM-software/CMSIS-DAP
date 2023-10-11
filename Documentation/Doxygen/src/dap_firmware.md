@@ -119,7 +119,7 @@ The following steps describe how to change and configure the USB peripheral in t
 1. In the **Project Window**, the group **USB** contains USB interface with the relevant configuration files.
 2. Open the file `usb_config_0.c` in the editor and select **Configuration Wizard** as edit mode; then change the following settings:
  - **USB Device 0 - High-speed**: enable this option only for a high-speed USB peripheral; disable for full-speed USB.
- - Update **Device Settings - Vendor ID** which is provided by the [USB Implementers Forum](https://www.usb.org/developers/vendor/).
+ - Update **Device Settings - Vendor ID** which is provided by the [USB Implementers Forum](https://www.usb.org/getting-vendor-id).
  - Update **Device Settings - Product ID** to provide a unique identification for the debug unit.
  - Update **Device Settings - Device Release Number** to indicate the revision of the adaptation.
  - Update **String Settings - Manufacturer String** to reflect the vendor of the debug unit. This setting should match the **Vendor ID**.
