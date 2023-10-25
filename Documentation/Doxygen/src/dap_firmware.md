@@ -126,9 +126,9 @@ The following steps describe how to change and configure the USB peripheral in t
  - Update **String Settings - Product String** to indicate the debug unit. Note that "CMSIS-DAP" must be part of that string to allow identification by debuggers (or part of interface string for USB composite device).
  - Optionally each debug unit may provide a unique **Serial Number String**. If the **String Settings - Serial Number String** is not provided, only one debug unit can be connected at the same time to a host computer since it is impossible to identify multiple debug units.
 
-\note
-  - The USB Device setting high-speed / full-speed USB must be reflected in the `DAP_config.h` file.
-  - The **String Settings - Product String** must contain "CMSIS-DAP" somewhere in the string. This is used by the debuggers to identify a CMSIS-DAP compliant debug unit that is connected to a host computer.
+> **Note**
+>  - The USB Device setting high-speed / full-speed USB must be reflected in the `DAP_config.h` file.
+>  - The **String Settings - Product String** must contain "CMSIS-DAP" somewhere in the string. This is used by the debuggers to identify a CMSIS-DAP compliant debug unit that is connected to a host computer.
 
 ![Adapt the USB Peripheral to the microcontroller](./images/MDK_USB.png)
 
@@ -141,7 +141,8 @@ This configuration requires custom class support with the interface setting:
  - Subclass: `0x00`
  - Protocol code: `0x00`
 
-\note This interface enables also [WebUSB](https://wicg.github.io/webusb/) technology that is used in web browsers to connect to a debug adapter connected to your PC.
+> **Note**
+> - This interface enables also [WebUSB](https://wicg.github.io/webusb/) technology that is used in web browsers to connect to a debug adapter connected to your PC.
 
 Depending on the configuration, it uses the following USB endpoints which should be configured in the interface descriptor in this order:
  - Endpoint 1: Bulk Out – used for commands received from host PC.
@@ -150,7 +151,8 @@ Depending on the configuration, it uses the following USB endpoints which should
 
 ![Configuration settings for the USB custom class](./images/MDK_USB_Custom.png)
 
-\note These settings allow support in Windows (8 and above), Mac OS, and Linux without further drivers. Some additional settings are required to automatically install CMSIS-DAP enabled debug adapters in these operating systems.
+> **Note**
+> - These settings allow support in Windows (8 and above), Mac OS, and Linux without further drivers. Some additional settings are required to automatically install CMSIS-DAP enabled debug adapters in these operating systems.
 
 **Additional settings for Microsoft Windows**
 

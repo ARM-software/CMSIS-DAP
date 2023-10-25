@@ -3,14 +3,14 @@
 Many Arm Cortex processors implement CoreSight Debug Access Port ([DAP](https://developer.arm.com/documentation/102585/0000/what-is-a-debug-access-port)) that equips them with powerful on-chip debug and trace capabilities. **CMSIS-DAP** standardizes and simplifies access to this functionalilty for embedded software developers.
 
 **CMSIS-DAP** is a protocol specification and a firmware implementation that enables standardized communication between two sides:
- - An Arm Cortex-based processor where an embedded application is executed, on one side,
- - and a software debug tool that runs on a host computer, on the other side.
+ - On one side an Arm Cortex-based processor where an embedded application is executed,
+ - and on the other side a software debug tool that runs on a host computer.
 
 CMSIS-DAP support can be implemented in a standalone debug unit, or also as a component integrated on a development board. The figure below illustrates the concept:
 
 ![CMSIS-DAP Interface](./images/CMSIS_DAP_INTERFACE.png)
 
-Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wired Debug (SWD). Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.
+Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wired Debug (SWD) interface. Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.
 
 For communication with the debugging program the USB connection is used. A broad set of \ref DAP_Commands_gr enables uniform support for CMSIS-DAP independendent on the actual probe.
 
@@ -18,9 +18,9 @@ The \ref dap_firmware provides a template implementation of the CMSIS-DAP concep
 
 Debug probes can be validated for compliance to CMSIS-DAP using the scripts explained in \ref dap_validate.
 
-\note
- - CMSIS-DAP v1.x is \a deprecated and is not recommended for new designs.
- - Use \ref dap_firmware "CMSIS-DAP v2.x" instead that provides high-speed SWO trace streaming and does not require driver installation in modern operating systems (Mac OS, Linux, Windows). Refer to \ref dap_drv_install for more information.
+> **Note**
+> - CMSIS-DAP v1.x is \a deprecated and is not recommended for new designs.
+> - Use \ref dap_firmware "CMSIS-DAP v2.x" instead that provides high-speed SWO trace streaming and does not require driver installation in modern operating systems (Mac OS, Linux, Windows). Refer to \ref dap_drv_install for more information.
 
 ## Features and Benefits {#dap_benefits}
 
@@ -48,7 +48,7 @@ Directory                             | Description
 📄 LICENSE                            | License Agreement (Apache 2.0)
 📄 README.md                          | Repository description
 
-For an overview of other CMSIS software components, tools and specifications see [CMSIS Documentation](https://arm-software.github.io/CMSIS_6/).
+See [CMSIS Documentation](https://arm-software.github.io/CMSIS_6/) for an overview of CMSIS software components, tools and specifications.
 
 ## Supported Tools and Probes {#dap_ecosystem}
 
@@ -58,7 +58,7 @@ CMSIS-DAP has a well-established support in popular embedded software developmen
  - [Arm Keil MDK](https://www.keil.arm.com/)
  - [IAR Embedded Workbench for Arm](https://www.iar.com/ewarm)
  - [SEGGER Embedded Studio](https://www.segger.com/products/development-tools/embedded-studio/)
- - [PlatfromIO](https://platformio.org/)
+ - [PlatformIO](https://platformio.org/)
  - [PyOCD](https://pyocd.io/)
  - [OpenOCD](https://openocd.org/)
 

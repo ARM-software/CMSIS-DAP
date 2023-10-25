@@ -1,4 +1,14 @@
 ﻿/**************************************************************************************************/
+/**************************************************************************************************/
+/**
+\defgroup DAP_ConfigIO_gr CMSIS-DAP Firmware Configuration
+
+\ref dap_firmware gives an overview about CMSIS-DAP operation and guides through the steps for enabling the CMSIS-DAP firmware on a custom debug unit.
+
+The configuration file \c DAP_config.h contains the interface functions and configuration parameters that need to be adapted in this process. The subsections in this group list and explain these configurations and functions in details.
+
+*/
+
 /**
 \defgroup DAP_Commands_gr CMSIS-DAP Commands
 
@@ -1666,14 +1676,5 @@ Receive and Transmit data via target UART (only for transport via DAP).
 - <b>Rx Count</b>: Number of bytes in <b>Receive data</b> read from UART receive buffer.
 
 - <b>Receive data</b>: Bytes received from the target device via UART.
-
-*/
-/**************************************************************************************************/
-/**
-\defgroup DAP_ConfigIO_gr CMSIS-DAP Firmware Configuration
-
-\ref dap_firmware gives an overview about CMSIS-DAP operation and guides through the steps for enabling the CMSIS-DAP firmware on a custom debug unit.
-
-The configuration file \c DAP_config.h contains the interface functions and configuration parameters that need to be adapted in this process. The subsections in this group list and explain these configurations and functions in details.
 
 */

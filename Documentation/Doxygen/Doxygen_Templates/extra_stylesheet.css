@@ -413,6 +413,7 @@ body, table, div, p, dl {
  margin-bottom:0px;
  padding-inline: 5px;
  padding-bottom: 3px;
+ cursor: pointer;
 }
 	
 .tile h2 {
@@ -1229,6 +1230,15 @@ div.dynheader {
 address {
 	font-style: normal;
 	color: #293C63;
+}
+
+blockquote.doxtable {
+    margin-left:-7px;
+    margin-bottom: 6px;
+    padding-left: 3px;
+    border-left:4px solid;
+    border-color: #D0C000;
+    background-color: var(--page-background-color);
 }
 
 table.doxtable {

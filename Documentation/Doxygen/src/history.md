@@ -65,7 +65,7 @@ The table below provides information about the changes delivered with specific v
     </tr>
     <tr>
       <td>V0.02</td>
-      <td>Renamed \b DAP_LED to \ref DAP_HostStatus.</td>
+      <td>Renamed **DAP_LED** to \ref DAP_HostStatus.</td>
     </tr>
     <tr>
       <td>V0.01</td>
