@@ -272,16 +272,14 @@ Configuring USB peripheral</h1>
 </ul>
 </li>
 </ol>
-<dl class="section note"><dt>Note</dt><dd><ul>
+<blockquote class="doxtable">
+<p>&zwj;<b>Note</b></p><ul>
 <li>The USB Device setting high-speed / full-speed USB must be reflected in the <code>DAP_config.h</code> file.</li>
-<li>The <b>String Settings - Product String</b> must contain "CMSIS-DAP" somewhere in the string. This is used by the debuggers to identify a CMSIS-DAP compliant debug unit that is connected to a host computer.</li>
+<li>The <b>String Settings - Product String</b> must contain "CMSIS-DAP" somewhere in the string. This is used by the debuggers to identify a CMSIS-DAP compliant debug unit that is connected to a host computer. </li>
 </ul>
-</dd></dl>
-<div class="image">
-<img src="MDK_USB.png" alt=""/>
-<div class="caption">
-Adapt the USB Peripheral to the microcontroller</div></div>
-    <h2><a class="anchor" id="dap_bulk_usb"></a>
+</blockquote>
+<p><img src="MDK_USB.png" alt="" class="inline" title="Adapt the USB Peripheral to the microcontroller"/>    </p>
+<h2><a class="anchor" id="dap_bulk_usb"></a>
 Communication via USB bulk endpoints</h2>
 <p>CMSIS-DAP v2 uses USB bulk endpoints. Optionally, support for streaming SWO trace is provided via an additional USB endpoint.</p>
 <p>This configuration requires custom class support with the interface setting:</p><ul>
@@ -289,7 +287,11 @@ Communication via USB bulk endpoints</h2>
 <li>Subclass: <code>0x00</code></li>
 <li>Protocol code: <code>0x00</code></li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>This interface enables also <a href="https://wicg.github.io/webusb/">WebUSB</a> technology that is used in web browsers to connect to a debug adapter connected to your PC.</dd></dl>
+<blockquote class="doxtable">
+<p>&zwj;<b>Note</b></p><ul>
+<li>This interface enables also <a href="https://wicg.github.io/webusb/">WebUSB</a> technology that is used in web browsers to connect to a debug adapter connected to your PC. </li>
+</ul>
+</blockquote>
 <p>Depending on the configuration, it uses the following USB endpoints which should be configured in the interface descriptor in this order:</p><ul>
 <li>Endpoint 1: Bulk Out – used for commands received from host PC.</li>
 <li>Endpoint 2: Bulk In – used for responses send to host PC.</li>
@@ -299,7 +301,11 @@ Communication via USB bulk endpoints</h2>
 <img src="MDK_USB_Custom.png" alt=""/>
 <div class="caption">
 Configuration settings for the USB custom class</div></div>
-    <dl class="section note"><dt>Note</dt><dd>These settings allow support in Windows (8 and above), Mac OS, and Linux without further drivers. Some additional settings are required to automatically install CMSIS-DAP enabled debug adapters in these operating systems.</dd></dl>
+    <blockquote class="doxtable">
+<p>&zwj;<b>Note</b></p><ul>
+<li>These settings allow support in Windows (8 and above), Mac OS, and Linux without further drivers. Some additional settings are required to automatically install CMSIS-DAP enabled debug adapters in these operating systems. </li>
+</ul>
+</blockquote>
 <p><b>Additional settings for Microsoft Windows</b></p>
 <p>For automatic installation of a CMSIS-DAP v2 enabled debug adapter in Windows, use the following WinUSB GUID in the USB custom class: </p><div class="fragment"><div class="line">{CDB3B5AD-293B-4663-AA36-1AAE46463776}</div>
 </div><!-- fragment --><p>The picture below shows the WinUSB GIUD configuration of the USB custom class:</p>

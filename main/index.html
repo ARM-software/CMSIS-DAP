@@ -129,23 +129,24 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="mainpage"></a> Many Arm Cortex processors implement CoreSight Debug Access Port (<a href="https://developer.arm.com/documentation/102585/0000/what-is-a-debug-access-port">DAP</a>) that equips them with powerful on-chip debug and trace capabilities. <b>CMSIS-DAP</b> standardizes and simplifies access to this functionalilty for embedded software developers.</p>
 <p><b>CMSIS-DAP</b> is a protocol specification and a firmware implementation that enables standardized communication between two sides:</p><ul>
-<li>An Arm Cortex-based processor where an embedded application is executed, on one side,</li>
-<li>and a software debug tool that runs on a host computer, on the other side.</li>
+<li>On one side an Arm Cortex-based processor where an embedded application is executed,</li>
+<li>and on the other side a software debug tool that runs on a host computer.</li>
 </ul>
 <p>CMSIS-DAP support can be implemented in a standalone debug unit, or also as a component integrated on a development board. The figure below illustrates the concept:</p>
 <div class="image">
 <img src="CMSIS_DAP_INTERFACE.png" alt=""/>
 <div class="caption">
 CMSIS-DAP Interface</div></div>
-    <p>Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wired Debug (SWD). Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.</p>
+    <p>Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wired Debug (SWD) interface. Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.</p>
 <p>For communication with the debugging program the USB connection is used. A broad set of <a class="el" href="group__DAP__Commands__gr.html">CMSIS-DAP Commands</a> enables uniform support for CMSIS-DAP independendent on the actual probe.</p>
 <p>The <a class="el" href="dap_firmware.html">CMSIS-DAP Firmware</a> provides a template implementation of the CMSIS-DAP concept as well as several example projects for popular debug units.</p>
 <p>Debug probes can be validated for compliance to CMSIS-DAP using the scripts explained in <a class="el" href="dap_validate.html">Validate the debug unit operation</a>.</p>
-<dl class="section note"><dt>Note</dt><dd><ul>
+<blockquote class="doxtable">
+<p>&zwj;<b>Note</b></p><ul>
 <li>CMSIS-DAP v1.x is <em>deprecated</em> and is not recommended for new designs.</li>
-<li>Use <a class="el" href="dap_firmware.html">CMSIS-DAP v2.x</a> instead that provides high-speed SWO trace streaming and does not require driver installation in modern operating systems (Mac OS, Linux, Windows). Refer to <a class="el" href="dap_drv_install.html">Host OS Drivers</a> for more information.</li>
+<li>Use <a class="el" href="dap_firmware.html">CMSIS-DAP v2.x</a> instead that provides high-speed SWO trace streaming and does not require driver installation in modern operating systems (Mac OS, Linux, Windows). Refer to <a class="el" href="dap_drv_install.html">Host OS Drivers</a> for more information. </li>
 </ul>
-</dd></dl>
+</blockquote>
 <h1><a class="anchor" id="dap_benefits"></a>
 Features and Benefits</h1>
 <ul>
@@ -177,7 +178,7 @@ Access to CMSIS-DAP</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">📄 README.md   </td><td class="markdownTableBodyLeft">Repository description   </td></tr>
 </table>
-<p>For an overview of other CMSIS software components, tools and specifications see <a href="https://arm-software.github.io/CMSIS_6/">CMSIS Documentation</a>.</p>
+<p>See <a href="https://arm-software.github.io/CMSIS_6/">CMSIS Documentation</a> for an overview of CMSIS software components, tools and specifications.</p>
 <h1><a class="anchor" id="dap_ecosystem"></a>
 Supported Tools and Probes</h1>
 <p>CMSIS-DAP has a well-established support in popular embedded software development tools. Below is a non-exhaustive list with key examples:</p>
@@ -185,7 +186,7 @@ Supported Tools and Probes</h1>
 <li><a href="https://www.keil.arm.com/">Arm Keil MDK</a></li>
 <li><a href="https://www.iar.com/ewarm">IAR Embedded Workbench for Arm</a></li>
 <li><a href="https://www.segger.com/products/development-tools/embedded-studio/">SEGGER Embedded Studio</a></li>
-<li><a href="https://platformio.org/">PlatfromIO</a></li>
+<li><a href="https://platformio.org/">PlatformIO</a></li>
 <li><a href="https://pyocd.io/">PyOCD</a></li>
 <li><a href="https://openocd.org/">OpenOCD</a></li>
 </ul>
