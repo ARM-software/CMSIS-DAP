@@ -129,10 +129,14 @@ $(document).ready(function(){initNavTree('group__DAP__Commands__gr.html',''); in
   <div class="headertitle"><div class="title">CMSIS-DAP Commands</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Commands between a CMSIS-DAP debug probe and a host computer.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="groups" name="groups"></a>
 Content</h2></td></tr>
 <tr class="memitem:group__DAP__genCommands__gr"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DAP__genCommands__gr.html">General Commands</a></td></tr>
+<tr class="memdesc:group__DAP__genCommands__gr"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information and Control commands for the CMSIS-DAP Debug Unit. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:group__DAP__swj__gr"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DAP__swj__gr.html">Common SWD/JTAG Commands</a></td></tr>
 <tr class="memdesc:group__DAP__swj__gr"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set SWD/JTAG clock and control/monitor SWD/JTAG I/O pins. <br /></td></tr>
@@ -160,7 +164,6 @@ Content</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
-<p>Commands between a CMSIS-DAP Debug Unit and host computer.</p>
 <p>This section explains each command that is exchanged between the CMSIS-DAP compliant Debug probe and the host computer.</p>
 <p>Every Command starts with a Command-ID and optional data. Depending on the Command, the CMSIS-DAP firmware replies with a Response that repeats the Command-ID and delivers additional data.</p>
 <p>Command and Response data have a package size limitation that is defined with <a class="el" href="group__DAP__Config__Debug__gr.html#gaa28bb1da2661291634c4a8fb3e227404">DAP_PACKET_SIZE</a>. This configuration setting can be obtained with the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> and is used to optimize the performance for Full-Speed or High-Speed USB. The debugger must ensure that each data package fits within the limitations of the configured <a class="el" href="group__DAP__Config__Debug__gr.html#gaa28bb1da2661291634c4a8fb3e227404">DAP_PACKET_SIZE</a>.</p>

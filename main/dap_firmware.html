@@ -179,7 +179,8 @@ $(document).ready(function(){initNavTree('dap_firmware.html',''); initResizable(
 </ul>
 <h1><a class="anchor" id="dap_hw_reqs"></a>
 Hardware requirements</h1>
-<p>The CMSIS-DAP firmware is designed for debug units that fulfill the following hardware requirements:</p><ul>
+<p>The CMSIS-DAP firmware is designed for debug units that fulfill the following hardware requirements:</p>
+<ul>
 <li>Cortex-M processor-based microcontroller.</li>
 <li>CPU Clock: 48 MHz or higher; microcontroller must have a SYSTICK timer.</li>
 <li>RAM: 8 KB or more.</li>
@@ -282,7 +283,8 @@ Configuring USB peripheral</h1>
 <h2><a class="anchor" id="dap_bulk_usb"></a>
 Communication via USB bulk endpoints</h2>
 <p>CMSIS-DAP v2 uses USB bulk endpoints. Optionally, support for streaming SWO trace is provided via an additional USB endpoint.</p>
-<p>This configuration requires custom class support with the interface setting:</p><ul>
+<p>This configuration requires custom class support with the interface setting:</p>
+<ul>
 <li>Class Code: <code>0xFF</code> (Vendor specific)</li>
 <li>Subclass: <code>0x00</code></li>
 <li>Protocol code: <code>0x00</code></li>
@@ -292,7 +294,8 @@ Communication via USB bulk endpoints</h2>
 <li>This interface enables also <a href="https://wicg.github.io/webusb/">WebUSB</a> technology that is used in web browsers to connect to a debug adapter connected to your PC. </li>
 </ul>
 </blockquote>
-<p>Depending on the configuration, it uses the following USB endpoints which should be configured in the interface descriptor in this order:</p><ul>
+<p>Depending on the configuration, it uses the following USB endpoints which should be configured in the interface descriptor in this order:</p>
+<ul>
 <li>Endpoint 1: Bulk Out – used for commands received from host PC.</li>
 <li>Endpoint 2: Bulk In – used for responses send to host PC.</li>
 <li>Endpoint 3: Bulk In (optional) – used for streaming SWO trace (if enabled with <a class="el" href="group__DAP__Config__Debug__gr.html#gafd6f450a10f4e03757388e00ea56906f">SWO_STREAM</a>).</li>
@@ -307,7 +310,8 @@ Configuration settings for the USB custom class</div></div>
 </ul>
 </blockquote>
 <p><b>Additional settings for Microsoft Windows</b></p>
-<p>For automatic installation of a CMSIS-DAP v2 enabled debug adapter in Windows, use the following WinUSB GUID in the USB custom class: </p><div class="fragment"><div class="line">{CDB3B5AD-293B-4663-AA36-1AAE46463776}</div>
+<p>For automatic installation of a CMSIS-DAP v2 enabled debug adapter in Windows, use the following WinUSB GUID in the USB custom class:</p>
+<div class="fragment"><div class="line">{CDB3B5AD-293B-4663-AA36-1AAE46463776}</div>
 </div><!-- fragment --><p>The picture below shows the WinUSB GIUD configuration of the USB custom class:</p>
 <div class="image">
 <img src="MDK_USB_Custom_WinUSBGIUD.png" alt=""/>
