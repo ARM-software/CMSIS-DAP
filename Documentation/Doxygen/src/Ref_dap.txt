@@ -2,6 +2,8 @@
 /**************************************************************************************************/
 /**
 \defgroup DAP_ConfigIO_gr CMSIS-DAP Firmware Configuration
+\brief Interface functions and configuration parameters for CMSIS-DAP firmware
+\details
 
 \ref dap_firmware gives an overview about CMSIS-DAP operation and guides through the steps for enabling the CMSIS-DAP firmware on a custom debug unit.
 
@@ -11,8 +13,8 @@ The configuration file \c DAP_config.h contains the interface functions and conf
 
 /**
 \defgroup DAP_Commands_gr CMSIS-DAP Commands
-
-Commands between a CMSIS-DAP Debug Unit and host computer.
+\brief Commands between a CMSIS-DAP debug probe and a host computer.
+\details
 
 This section explains each command that is exchanged between the CMSIS-DAP compliant Debug probe and the host computer.
 
@@ -76,7 +78,7 @@ Depending on the Command the Debug Unit may send a <b>Response</b>.
 /**
 \defgroup DAP_genCommands_gr General Commands
 \ingroup DAP_Commands_gr
-Information and Control commands for the CMSIS-DAP Debug Unit.
+\brief Information and Control commands for the CMSIS-DAP Debug Unit.
 
 The General Commands allow to:
  - Connect, disconnect, and identify the Debug Unit.

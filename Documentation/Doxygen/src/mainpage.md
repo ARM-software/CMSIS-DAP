@@ -3,6 +3,7 @@
 Many Arm Cortex processors implement CoreSight Debug Access Port ([DAP](https://developer.arm.com/documentation/102585/0000/what-is-a-debug-access-port)) that equips them with powerful on-chip debug and trace capabilities. **CMSIS-DAP** standardizes and simplifies access to this functionalilty for embedded software developers.
 
 **CMSIS-DAP** is a protocol specification and a firmware implementation that enables standardized communication between two sides:
+
  - On one side an Arm Cortex-based processor where an embedded application is executed,
  - and on the other side a software debug tool that runs on a host computer.
 
@@ -55,6 +56,7 @@ See [CMSIS Documentation](https://arm-software.github.io/CMSIS_6/) for an overvi
 CMSIS-DAP has a well-established support in popular embedded software development tools. Below is a non-exhaustive list with key examples:
 
 **Software Development Tools and Frameworks:**
+
  - [Arm Keil MDK](https://www.keil.arm.com/)
  - [IAR Embedded Workbench for Arm](https://www.iar.com/ewarm)
  - [SEGGER Embedded Studio](https://www.segger.com/products/development-tools/embedded-studio/)
@@ -65,6 +67,7 @@ CMSIS-DAP has a well-established support in popular embedded software developmen
 Also many development tools from chip vendors rely on CMSIS-DAP protocol for communication with devices.
 
 **Debug adapters:**
+
  - [Arm ULINKplus](https://developer.arm.com/Tools%20and%20Software/ULINKplus)
  - [SEGGER J-Link](https://www.segger.com/products/debug-probes/j-link/)
  - On-board debug adapters from many popular chip vendors.
