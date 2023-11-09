@@ -795,7 +795,7 @@ FILE_VERSION_FILTER    =
 # DoxygenLayout.xml, doxygen will parse it automatically even if the LAYOUT_FILE
 # tag is left empty.
 
-LAYOUT_FILE            = ./style_template/Layout_forUser.xml
+LAYOUT_FILE            = ./style_template/layout.xml
 
 # The CITE_BIB_FILES tag can be used to specify one or more bib files containing
 # the reference definitions. This must be a list of .bib files. The .bib
@@ -921,7 +921,7 @@ INPUT                  = ./src/mainpage.md \
                          ./src/dap_firmware.md \
                          ./src/dap_drv_install.md \
                          ./src/dap_validate.md \
-                         ./src/Ref_dap.txt \
+                         ./src/ref_dap.txt \
                          ../../Firmware/Template \
                          ../../Firmware/Config
 
@@ -1393,7 +1393,7 @@ HTML_EXTRA_STYLESHEET  = ./style_template/extra_stylesheet.css \
 HTML_EXTRA_FILES       = ./style_template/tabs.css \
                          ./style_template/version.css \
                          ./style_template/tab_b.png \
-                         ./style_template/printComponentTabs.js \
+                         ./style_template/tabs.js \
                          ./style_template/darkmode_toggle.js \
                          ./style_template/navtree.js \
                          ./style_template/dropdown.png
@@ -1738,7 +1738,7 @@ ENUM_VALUES_PER_LINE   = 1
 # Minimum value: 0, maximum value: 1500, default value: 250.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-TREEVIEW_WIDTH         = 250
+TREEVIEW_WIDTH         = 320
 
 # If the EXT_LINKS_IN_WINDOW option is set to YES, doxygen will open links to
 # external symbols imported via tag files in a separate window.
