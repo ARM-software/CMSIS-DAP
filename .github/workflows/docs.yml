@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  gen_doc
+  gen_doc:
     name: Build documentation
     runs-on: ubuntu-22.04
     steps:
