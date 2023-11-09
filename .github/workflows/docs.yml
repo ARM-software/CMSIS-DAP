@@ -13,7 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Build documentation:
+  gen_doc
+    name: Build documentation
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
