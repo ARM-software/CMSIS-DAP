@@ -3,5 +3,5 @@ function writeHeader() {
 };
 
 function writeFooter()  {
-    document.write('Generated on Thu Nov  9 2023 17:20:07 for CMSIS-DAP 0.0.0-dirty1+g206cde4. Copyright &copy; 2023 Arm Limited (or its affiliates). All rights reserved.');
+    document.write('Generated on Fri Nov 10 2023 11:35:06 for CMSIS-DAP 0.0.0-dirty1+gb934cc4. Copyright &copy; 2023 Arm Limited (or its affiliates). All rights reserved.');
 };
