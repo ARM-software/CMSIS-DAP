@@ -102,6 +102,7 @@
   display:block;
   position: absolute;
   left: 0px;
+  width: 330px;
 }
 
 .ui-resizable .ui-resizable-handle {

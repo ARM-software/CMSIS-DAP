@@ -6,7 +6,6 @@
 # Pre-requisites:
 # - bash shell (for Windows: install git for Windows)
 # - doxygen 1.9.6
-# - mscgen 0.20
 # - linkchecker (can be skipped with -s)
 
 set -o pipefail
@@ -19,7 +18,6 @@ REQUIRED_GEN_PACK_LIB="0.9.0"
 DIRNAME=$(dirname "$(readlink -f "$0")")
 GENDIR=../html
 REQ_DXY_VERSION="1.9.6"
-REQ_MSCGEN_VERSION="0.20"
 
 RUN_LINKCHECKER=1
 COMPONENTS=()
@@ -53,6 +51,7 @@ while [[ $# -gt 0 ]]; do
   esac
   shift # past argument
 done
+
 ############ DO NOT EDIT BELOW ###########
 
 # Set GEN_PACK_LIB_PATH to use a specific gen-pack library root
@@ -65,7 +64,6 @@ fi
 
 find_git
 find_doxygen "${REQ_DXY_VERSION}"
-find_utility "mscgen" "-l | grep 'Mscgen version' | sed -r -e 's/Mscgen version ([^,]+),.*/\1/'" "${REQ_MSCGEN_VERSION}"
 [[ ${RUN_LINKCHECKER} != 0 ]] && find_linkchecker
 
 if [ -z "${VERSION_FULL}" ]; then
