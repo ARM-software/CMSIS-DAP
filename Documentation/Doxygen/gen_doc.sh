@@ -13,20 +13,18 @@ set -o pipefail
 # Set version of gen pack library
 # For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
 # Use the tag name without the prefix "v", e.g., 0.7.0
-REQUIRED_GEN_PACK_LIB="0.9.0"
+REQUIRED_GEN_PACK_LIB="0.9.1"
 
 DIRNAME=$(dirname "$(readlink -f "$0")")
 GENDIR=../html
 REQ_DXY_VERSION="1.9.6"
 
 RUN_LINKCHECKER=1
-COMPONENTS=()
 
 function usage() {
   echo "Usage: $(basename "$0") [-h] [-s] [-c <comp>]"
   echo " -h,--help               Show usage"
   echo " -s,--no-linkcheck       Skip linkcheck"
-  echo " -c,--component <comp>   Select component <comp> to generate documentation for. "
   echo "                         Can be given multiple times. Defaults to all components."
 }
 
@@ -38,10 +36,6 @@ while [[ $# -gt 0 ]]; do
     ;;
     '-s'|'--no-linkcheck')
       RUN_LINKCHECKER=0
-    ;;
-    '-c'|'--component')
-      shift
-      COMPONENTS+=("$1")
     ;;
     *)
       echo "Invalid command line argument: $1" >&2
@@ -70,7 +64,7 @@ if [ -z "${VERSION_FULL}" ]; then
   VERSION_FULL=$(git_describe "v")
 fi
 
-pushd "${DIRNAME}" > /dev/null
+pushd "${DIRNAME}" > /dev/null || exit 1
 
 echo "Generating documentation ..."
 
@@ -99,7 +93,7 @@ sed -e "s/{datetime}/${datetime}/" "${DIRNAME}/style_template/footer.js.in" \
   | sed -e "s/{projectNumberFull}/${projectNumberFull}/" \
   > "${DIRNAME}/${GENDIR}/footer.js"
 
-popd > /dev/null
+popd > /dev/null || exit 1
 
 [[ ${RUN_LINKCHECKER} != 0 ]] && check_links "${DIRNAME}/../html/index.html" "${DIRNAME}"
 
