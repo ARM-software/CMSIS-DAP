@@ -1,6 +1,6 @@
 //--- list of versions ---
 const versions = {
-    "latest": "0.0.0-dirty1"
+    "latest": "0.0.0"
 }
 //--- list of versions ---
 
