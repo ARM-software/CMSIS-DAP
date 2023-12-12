@@ -6,4 +6,7 @@ ignoreerrors=
     mag_seld.svg
     ../tab_a.png
     ../tab_ad.png
-    
+
+[filtering]
+ignorewarnings=
+    http-redirected
