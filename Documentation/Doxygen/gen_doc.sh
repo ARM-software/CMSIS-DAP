@@ -76,7 +76,7 @@ year=$(date -u +'%Y')
 
 sed -e "s/{projectNumber}/${projectNumber}/" dap.dxy.in > dap.dxy
 
-# git_changelog -f html -p "v" > src/history.txt
+git_changelog -f html -p "v" > src/history.txt
 
 echo "\"${UTILITY_DOXYGEN}\" dap.dxy"
 "${UTILITY_DOXYGEN}" dap.dxy

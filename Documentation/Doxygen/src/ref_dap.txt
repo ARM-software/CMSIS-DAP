@@ -291,7 +291,7 @@ The ID for <b>Vendor Name</b>, <b>Product Name</b>, and <b>Serial Number</b> may
 In this case the USB Device Information is used to obtain Vendor Name, Product Name, and Serial Number.
 
 \note
-The value of <b>CMSIS-DAP Protocol Version</b> must be one of the versions from the \ref dap_revisionHistory "CMSIS-DAP revision history", such as "2.1.0".
+The value of <b>CMSIS-DAP Protocol Version</b> must be one of the versions from the \ref rev_hist "CMSIS-DAP revision history", such as "2.1.0".
 
 \note
 <b>Target Device Vendor</b>, <b>Target Device Name</b>, <b>Target Board Vendor</b> and <b>Target Board Name</b>

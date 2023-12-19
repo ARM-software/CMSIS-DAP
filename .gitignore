@@ -2,3 +2,5 @@
 Documentation/html
 Documentation/Doxygen/dap.dxy
 Documentation/Doxygen/*.csv
+Documentation/Doxygen/src/history.txt
+

@@ -918,6 +918,7 @@ WARN_LOGFILE           =
 
 INPUT                  = ./src/mainpage.md \
                          ./src/history.md \
+                         ./src/history.txt \
                          ./src/dap_firmware.md \
                          ./src/dap_drv_install.md \
                          ./src/dap_validate.md \
