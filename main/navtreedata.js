@@ -26,7 +26,7 @@ var NAVTREE =
 [
   [ "CMSIS-DAP", "index.html", [
     [ "Overview", "index.html", "index" ],
-    [ "Revision History", "dap_revisionHistory.html", null ],
+    [ "Revision History", "rev_hist.html", null ],
     [ "CMSIS-DAP Firmware", "dap_firmware.html", [
       [ "Hardware requirements", "dap_firmware.html#dap_hw_reqs", null ],
       [ "Example implementations", "dap_firmware.html#dap_fw_examples", null ],

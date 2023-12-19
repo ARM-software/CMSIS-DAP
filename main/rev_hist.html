@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('dap_revisionHistory.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('rev_hist.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -124,40 +124,16 @@ $(document).ready(function(){initNavTree('dap_revisionHistory.html',''); initRes
   <div class="headertitle"><div class="title">Revision History </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_src_history"></a> The table below provides information about the changes delivered with specific versions of CMSIS-DAP updates.</p>
+<div class="textblock"><p><a class="anchor" id="md_src_history"></a> The table below provides information about the changes delivered with specific versions of CMSIS-DAP updates. For older versions refer to the former location of CMSIS-DAP in <a href="https://arm-software.github.io/CMSIS_5/latest/DAP/html/dap_revisionHistory.html">CMSIS 5 Documentation</a>.</p>
 <table class="cmtable" summary="Revision History">
 <tr>
 <th>Version </th><th>Description  </th></tr>
 <tr>
-<td>V2.1.2 </td><td>Fix <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> handling when transfer fails   </td></tr>
-<tr>
-<td>V2.1.1 </td><td>Allow default clock frequency to use fast clock mode   </td></tr>
-<tr>
-<td>V2.1.0 </td><td>Added: <a class="el" href="group__DAP__uart__gr.html">UART COM Commands</a> to support target communication via extra UART<br  />
- Added: UART Receive/Transmit Buffer Size values in the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> <br  />
- Added: Target Board Vendor and Target Board Name strings in the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> <br  />
- Added: Product Firmware Version string in the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> <br  />
- Changed: String encoding in <a class="el" href="group__DAP__Info.html">DAP_Info</a> from ASCII to UTF-8   </td></tr>
-<tr>
-<td>V2.0.0 </td><td>Changed: Communication via USB bulk endpoints to achieve high-speed transfer rates<br  />
- Added: Streaming SWO via separate <a class="el" href="dap_firmware.html#dap_bulk_usb">USB bulk endpoint</a><br  />
- Added: <a class="el" href="group__DAP__SWO__Transport.html">DAP_SWO_Transport</a> extended with transport mode 2 - Send trace data via separate <a class="el" href="dap_firmware.html#dap_bulk_usb">USB bulk endpoint</a>   </td></tr>
-<tr>
-<td>V1.3.0 </td><td>Added: Target Board Vendor and Target Board Name strings in the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> <br  />
- Added: Product Firmware Version string in the command <a class="el" href="group__DAP__Info.html">DAP_Info</a> <br  />
- Changed: String encoding in <a class="el" href="group__DAP__Info.html">DAP_Info</a> from ASCII to UTF-8   </td></tr>
-<tr>
-<td>V1.2.0 </td><td>Added: <a class="el" href="group__DAP__SWD__Sequence.html">DAP_SWD_Sequence</a> to enable SWD multi-drop target selection <br  />
- Added: Test Domain Timer values in the commands <a class="el" href="group__DAP__Info.html">DAP_Info</a>, <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a>   </td></tr>
-<tr>
-<td>V1.1.0 </td><td>Added: <a class="el" href="group__DAP__swo__gr.html">SWO Commands</a> to support Serial Wire Output (SWO) in UART mode<br  />
- Added: <a class="el" href="group__DAP__atomic__gr.html">Atomic Commands</a> support for executing time critical DAP commands   </td></tr>
-<tr>
-<td>V1.0.0 </td><td>Version 1.0.0 was never released; version number skipped.  </td></tr>
-<tr>
-<td>V0.02 </td><td>Renamed <b>DAP_LED</b> to <a class="el" href="group__DAP__HostStatus.html">DAP_HostStatus</a>.  </td></tr>
-<tr>
-<td>V0.01 </td><td>Beta Release.  </td></tr>
+<td>v2.1.2 </td><td><ul>
+<li>Align with CMSIS 6</li>
+<li>Fix DAP_Transfer handling when transfer fails   </li>
+</ul>
+</td></tr>
 </table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

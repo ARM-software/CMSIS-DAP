@@ -15,7 +15,6 @@ var NAVTREEINDEX0 =
 "dap_firmware.html#dap_usart_com":[2,6],
 "dap_firmware.html#dap_usart_swo":[2,5],
 "dap_firmware.html#dap_usb_cdc":[2,7,1],
-"dap_revisionHistory.html":[1],
 "dap_validate.html":[4],
 "group__DAP__Commands__gr.html":[5,1],
 "group__DAP__ConfigIO__gr.html":[5,0],
@@ -133,5 +132,6 @@ var NAVTREEINDEX0 =
 "index.html#dap_ecosystem":[0,2],
 "index.html#dap_license":[0,3],
 "modules.html":[5],
-"pages.html":[]
+"pages.html":[],
+"rev_hist.html":[1]
 };
