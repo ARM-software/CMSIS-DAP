@@ -61,22 +61,39 @@ static const char DAP_FW_Ver [] = DAP_FW_VER;
 static void Set_Clock_Delay(uint32_t clock) {
   uint32_t delay;
 
-  if (clock >= MAX_SWJ_CLOCK(DELAY_FAST_CYCLES)) {
-    DAP_Data.fast_clock  = 1U;
-    DAP_Data.clock_delay = 1U;
-  } else {
-    DAP_Data.fast_clock  = 0U;
-
-    delay = ((CPU_CLOCK/2U) + (clock - 1U)) / clock;
-    if (delay > IO_PORT_WRITE_CYCLES) {
-      delay -= IO_PORT_WRITE_CYCLES;
-      delay  = (delay + (DELAY_SLOW_CYCLES - 1U)) / DELAY_SLOW_CYCLES;
+  // For frequency values in the range from 100 to 200 Hz, 
+  // there is no conversion to the real frequency, "clock_delay" 
+  // is set directly here. With the exception that the "fast_clock" 
+  // setting is used at 100 Hz.
+  if ((clock >= 100) && (clock <= 200))
+  {
+    if (100 == clock)
+    {
+      DAP_Data.fast_clock  = 1U;
+      DAP_Data.clock_delay = 1U;
     } else {
-      delay  = 1U;
+      delay = clock - 100;  
+      DAP_Data.fast_clock  = 0U;
+      DAP_Data.clock_delay = delay;
     }
+  } else {
+    if (clock >= MAX_SWJ_CLOCK(DELAY_FAST_CYCLES)) {
+      DAP_Data.fast_clock  = 1U;
+      DAP_Data.clock_delay = 1U;
+    } else {
+      DAP_Data.fast_clock  = 0U;
 
-    DAP_Data.clock_delay = delay;
-  }
+      delay = ((CPU_CLOCK/2U) + (clock - 1U)) / clock;
+      if (delay > IO_PORT_WRITE_CYCLES) {
+        delay -= IO_PORT_WRITE_CYCLES;
+        delay  = (delay + (DELAY_SLOW_CYCLES - 1U)) / DELAY_SLOW_CYCLES;
+      } else {
+        delay  = 1U;
+      }
+
+      DAP_Data.clock_delay = delay;
+    }
+  }    
 }
 
 
@@ -405,7 +422,6 @@ static uint32_t DAP_SWJ_Pins(const uint8_t *request, uint8_t *response) {
 static uint32_t DAP_SWJ_Clock(const uint8_t *request, uint8_t *response) {
 #if ((DAP_SWD != 0) || (DAP_JTAG != 0))
   uint32_t clock;
-  uint32_t delay;
 
   clock = (uint32_t)(*(request+0) <<  0) |
           (uint32_t)(*(request+1) <<  8) |

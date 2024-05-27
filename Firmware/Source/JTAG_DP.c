@@ -252,7 +252,7 @@ exit:                                                                           
 
 
 #undef  PIN_DELAY
-#define PIN_DELAY() PIN_DELAY_FAST()
+#define PIN_DELAY() PIN_DELAY_FAST_JTAG()
 JTAG_IR_Function(Fast)
 JTAG_TransferFunction(Fast)
 

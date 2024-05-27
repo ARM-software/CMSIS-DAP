@@ -262,7 +262,7 @@ static uint8_t SWD_Transfer##speed (uint32_t request, uint32_t *data) {         
 
 
 #undef  PIN_DELAY
-#define PIN_DELAY() PIN_DELAY_FAST()
+#define PIN_DELAY() PIN_DELAY_FAST_SWD()
 SWD_TransferFunction(Fast)
 
 #undef  PIN_DELAY

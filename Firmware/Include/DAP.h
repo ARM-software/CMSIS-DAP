@@ -345,19 +345,74 @@ __STATIC_FORCEINLINE void PIN_DELAY_SLOW (uint32_t delay) {
 
 // Fixed delay for fast clock generation
 #ifndef DELAY_FAST_CYCLES
-#define DELAY_FAST_CYCLES       0U      // Number of cycles: 0..3
+#define DELAY_FAST_CYCLES        0U    // Not used for fast cycle calculation anymore
 #endif
-__STATIC_FORCEINLINE void PIN_DELAY_FAST (void) {
-#if (DELAY_FAST_CYCLES >= 1U)
+
+#ifndef DELAY_FAST_CYCLES_SWD
+#define DELAY_FAST_CYCLES_SWD    2U    // Number of cycles: 0..3
+#endif
+__STATIC_FORCEINLINE void PIN_DELAY_FAST_SWD (void) {
+#if (DELAY_FAST_CYCLES_SWD >= 1U)
   __NOP();
 #endif
-#if (DELAY_FAST_CYCLES >= 2U)
+#if (DELAY_FAST_CYCLES_SWD >= 2U)
   __NOP();
 #endif
-#if (DELAY_FAST_CYCLES >= 3U)
+#if (DELAY_FAST_CYCLES_SWD >= 3U)
   __NOP();
 #endif
-}
+} /* PIN_DELAY_FAST_SWD */
+
+#ifndef DELAY_FAST_CYCLES_JTAG
+#define DELAY_FAST_CYCLES_JTAG   10U    // Number of cycles: 1..15
+#endif
+__STATIC_FORCEINLINE void PIN_DELAY_FAST_JTAG (void) {
+#if (DELAY_FAST_CYCLES_JTAG >= 1U)
+  __NOP();
+#endif  
+#if (DELAY_FAST_CYCLES_JTAG >= 2U)
+  __NOP();
+#endif  
+#if (DELAY_FAST_CYCLES_JTAG >= 3U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 4U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 5U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 6U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 7U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 8U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 9U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 10U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 11U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 12U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 13U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 14U)
+  __NOP();
+#endif
+#if (DELAY_FAST_CYCLES_JTAG >= 15U)
+  __NOP();
+#endif
+} /* PIN_DELAY_FAST_SWD */
 
 #ifdef  __cplusplus
 }
