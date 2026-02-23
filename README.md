@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/License-Apache--2.0-green?label=License)](https://github.com/Arm-Software/CMSIS-DAP/blob/main/LICENSE)
+[![Build Documentation](https://img.shields.io/github/actions/workflow/status/Arm-Software/CMSIS-DAP/docs.yml?logo=arm&logoColor=0091bd&label=Build%20Documentation)](./.github/workflows/docs.yml)
+
 # CMSIS-DAP
 
 The branch *main* of this GitHub repository contains  **CMSIS-DAP** - a protocol specification and a firmware implementation that enables standardized access to Arm CoreSight Debug Access Port ([DAP](https://developer.arm.com/documentation/102585/0000/what-is-a-debug-access-port)) for debugging embedded software programs.
