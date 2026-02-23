@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uart_20com_20commands_0',['UART COM Commands',['../group__DAP__uart__gr.html',1,'']]]
+  ['leds_0',['CMSIS-DAP Hardware Status LEDs',['../group__DAP__Config__LEDs__gr.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['overview_0',['Overview',['../index.html',1,'']]]
+  ['firmware_0',['CMSIS-DAP Firmware',['../dap_firmware.html',1,'']]]
 ];

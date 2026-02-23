@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['general_20commands_0',['General Commands',['../group__DAP__genCommands__gr.html',1,'']]]
+  ['firmware_20configuration_0',['CMSIS-DAP Firmware Configuration',['../group__DAP__ConfigIO__gr.html',1,'']]]
 ];

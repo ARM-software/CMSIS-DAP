@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jtag_20commands_0',['JTAG Commands',['../group__DAP__jtag__gr.html',1,'']]]
+  ['general_20commands_0',['General Commands',['../group__DAP__genCommands__gr.html',1,'']]]
 ];

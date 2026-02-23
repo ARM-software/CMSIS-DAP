@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['swd_20commands_0',['SWD Commands',['../group__DAP__swd__gr.html',1,'']]],
-  ['swo_20commands_1',['SWO Commands',['../group__DAP__swo__gr.html',1,'']]]
+  ['i_20o_20pin_20access_0',['CMSIS-DAP Hardware I/O Pin Access',['../group__DAP__Config__PortIO__gr.html',1,'']]],
+  ['information_1',['CMSIS-DAP Debug Unit Information',['../group__DAP__Config__Debug__gr.html',1,'']]],
+  ['initialization_2',['CMSIS-DAP Initialization',['../group__DAP__Config__Initialization__gr.html',1,'']]]
 ];

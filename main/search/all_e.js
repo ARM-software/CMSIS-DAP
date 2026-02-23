@@ -1,4 +1,32 @@
 var searchData=
 [
-  ['validate_20the_20debug_20unit_20operation_0',['Validate the debug unit operation',['../dap_validate.html',1,'']]]
+  ['peripheral_0',['Configuring USB peripheral',['../dap_firmware.html#dap_config_usb',1,'']]],
+  ['pin_20access_1',['CMSIS-DAP Hardware I/O Pin Access',['../group__DAP__Config__PortIO__gr.html',1,'']]],
+  ['pin_20access_20functions_2',['DAP Hardware I/O Pin Access Functions',['../group__DAP__Config__PortIO__gr.html#autotoc_md14',1,'']]],
+  ['pin_5fnreset_5fin_3',['PIN_nRESET_IN',['../group__DAP__Config__PortIO__gr.html#ga401f5879824966071ba05fb1b4102626',1,'DAP_config.h']]],
+  ['pin_5fnreset_5fout_4',['PIN_nRESET_OUT',['../group__DAP__Config__PortIO__gr.html#gacfe405b75aefcdf7c06b2b426595ea0a',1,'DAP_config.h']]],
+  ['pin_5fntrst_5fin_5',['PIN_nTRST_IN',['../group__DAP__Config__PortIO__gr.html#gabdce264d0e78ce31bcb2e91f97e49b2a',1,'DAP_config.h']]],
+  ['pin_5fntrst_5fout_6',['PIN_nTRST_OUT',['../group__DAP__Config__PortIO__gr.html#ga190b2403a1bc0dc9a94b70622ed9de41',1,'DAP_config.h']]],
+  ['pin_5fswclk_5ftck_5fclr_7',['PIN_SWCLK_TCK_CLR',['../group__DAP__Config__PortIO__gr.html#ga9dcba97c6779b70dca02e51a36696a61',1,'DAP_config.h']]],
+  ['pin_5fswclk_5ftck_5fin_8',['PIN_SWCLK_TCK_IN',['../group__DAP__Config__PortIO__gr.html#gafc133887a94442c3bc4424909dff8512',1,'DAP_config.h']]],
+  ['pin_5fswclk_5ftck_5fset_9',['PIN_SWCLK_TCK_SET',['../group__DAP__Config__PortIO__gr.html#ga43481ea1fcc2e389761ccb78bf76b891',1,'DAP_config.h']]],
+  ['pin_5fswdio_5fin_10',['PIN_SWDIO_IN',['../group__DAP__Config__PortIO__gr.html#ga6873b9000f9ec322626ecc06664fb229',1,'DAP_config.h']]],
+  ['pin_5fswdio_5fout_11',['PIN_SWDIO_OUT',['../group__DAP__Config__PortIO__gr.html#ga0c100894fc532bc05fc81f4128e06e23',1,'DAP_config.h']]],
+  ['pin_5fswdio_5fout_5fdisable_12',['PIN_SWDIO_OUT_DISABLE',['../group__DAP__Config__PortIO__gr.html#ga4873c485ca5e49efbb218f4f80a59a17',1,'DAP_config.h']]],
+  ['pin_5fswdio_5fout_5fenable_13',['PIN_SWDIO_OUT_ENABLE',['../group__DAP__Config__PortIO__gr.html#ga130df1a24eef09b9e250e7e328f06e50',1,'DAP_config.h']]],
+  ['pin_5fswdio_5ftms_5fclr_14',['PIN_SWDIO_TMS_CLR',['../group__DAP__Config__PortIO__gr.html#ga04aa6eb6186f50bb1ea7d991870f8670',1,'DAP_config.h']]],
+  ['pin_5fswdio_5ftms_5fin_15',['PIN_SWDIO_TMS_IN',['../group__DAP__Config__PortIO__gr.html#gaf127becf6c639beff822f83fbdef7761',1,'DAP_config.h']]],
+  ['pin_5fswdio_5ftms_5fset_16',['PIN_SWDIO_TMS_SET',['../group__DAP__Config__PortIO__gr.html#gaac7a2af102cc9fa9358d507c11cf9241',1,'DAP_config.h']]],
+  ['pin_5ftdi_5fin_17',['PIN_TDI_IN',['../group__DAP__Config__PortIO__gr.html#ga2cea243a2dbbece100f15a7f1fb04e5c',1,'DAP_config.h']]],
+  ['pin_5ftdi_5fout_18',['PIN_TDI_OUT',['../group__DAP__Config__PortIO__gr.html#gad40bb9c760000dfda7c533d63af3b4fa',1,'DAP_config.h']]],
+  ['pin_5ftdo_5fin_19',['PIN_TDO_IN',['../group__DAP__Config__PortIO__gr.html#gace11527334bc4453e8407e44fc58f619',1,'DAP_config.h']]],
+  ['port_20',['Enabling serial port',['../dap_firmware.html#dap_usart_com',1,'']]],
+  ['port_5fjtag_5fsetup_21',['PORT_JTAG_SETUP',['../group__DAP__Config__PortIO__gr.html#ga037d02e221d71916a83349d6572bf91d',1,'DAP_config.h']]],
+  ['port_5foff_22',['PORT_OFF',['../group__DAP__Config__PortIO__gr.html#gaf31b342bc0fc5ad3669f43888466db61',1,'DAP_config.h']]],
+  ['port_5fswd_5fsetup_23',['PORT_SWD_SETUP',['../group__DAP__Config__PortIO__gr.html#ga08369d48fb874acdfb40726edaa3d147',1,'DAP_config.h']]],
+  ['ports_20and_20debug_20unit_24',['Configuring I/O ports and debug unit',['../dap_firmware.html#dap_config_io',1,'']]],
+  ['probes_25',['Supported Tools and Probes',['../index.html#dap_ecosystem',1,'']]],
+  ['processor_26',['Selecting target processor',['../dap_firmware.html#dap_config_mcu',1,'']]],
+  ['programming_20into_20debug_20unit_27',['Programming into debug unit',['../dap_firmware.html#dap_config_flash',1,'']]],
+  ['project_28',['Create firmware project',['../dap_firmware.html#dap_fw_prj',1,'']]]
 ];

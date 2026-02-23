@@ -45,8 +45,7 @@ var NAVTREE =
       [ "Additional requirements for Linux", "dap_drv_install.html#udevrules", null ],
       [ "Additional requirements for Windows", "dap_drv_install.html#win", null ]
     ] ],
-    [ "Validate the debug unit operation", "dap_validate.html", null ],
-    [ "References", "modules.html", "modules" ]
+    [ "Validate the debug unit operation", "dap_validate.html", null ]
   ] ]
 ];
 
@@ -55,5 +54,5 @@ var NAVTREEINDEX =
 "dap_drv_install.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
