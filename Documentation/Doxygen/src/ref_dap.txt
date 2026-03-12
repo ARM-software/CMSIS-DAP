@@ -167,6 +167,8 @@ The Transfer Commands allow to:
  - Transfer (read or write) a single data word or a data block with CoreSight registers.
  - Terminate an active data transfer.
 
+### Match Retry Mechanism
+
 The \a Match \a Retry parameter configured by \ref DAP_TransferConfigure directly affects how \ref DAP_Transfer
 processes read operations that use the match mask and value match features.
 
@@ -177,6 +179,8 @@ automatically retry the read until either the masked value matches or the config
 exhausted. If the retry limit is reached without a match, Bit 4 (\a Value \a Mismatch) is set in the response and the
 \ref DAP_Transfer command aborts. This behavior is governed by the \a Match \a Retry parameter documented in
 \ref DAP_TransferConfigure (see Match Retry: Number of retries on reads with Value Match in DAP_Transfer).
+
+### Usage Example
 
 A common use case for this mechanism is polling the Cortex-M debug registers via SWD. For example, reading a core
 register through the Debug Core Register Selector (DCRSR) requires writing the register identifier and then polling
@@ -191,6 +195,8 @@ can implement this pattern without explicit looping in the host:
   writes the match mask (using the Match Mask bit set in the request). The mask defines which bits in the read value
   are relevant for comparison (for example, selecting the S_REGRDY bit). The second transfer performs the actual read
   with the Value Match bit set and includes the expected Match_Value in the transfer data.
+
+### Efficient use of DAP Transfers for Core Register Reads
 
 By arranging the mask and value in a single \ref DAP_Transfer request, the firmware will repeatedly execute the read
 until the masked value matches or the retry limit is reached. The match mask remains in effect for subsequent transfers
