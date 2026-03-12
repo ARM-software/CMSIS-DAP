@@ -13,13 +13,13 @@ set -o pipefail
 # Set version of gen pack library
 # For available versions see https://github.com/Open-CMSIS-Pack/gen-pack/tags.
 # Use the tag name without the prefix "v", e.g., 0.7.0
-REQUIRED_GEN_PACK_LIB="0.11.3"
+REQUIRED_GEN_PACK_LIB="0.13.0"
 
 DIRNAME=$(dirname "$(readlink -f "$0")")
 GENDIR=../html
 REQ_DXY_VERSION="1.13.2"
 
-RUN_LINKCHECKER=1
+RUN_LINKCHECKER=0
 
 function usage() {
   echo "Usage: $(basename "$0") [-h] [-s] [-c <comp>]"

@@ -166,6 +166,51 @@ The Transfer Commands allow to:
  - Configure the parameters for information exchange with CoreSight registers.
  - Transfer (read or write) a single data word or a data block with CoreSight registers.
  - Terminate an active data transfer.
+
+### Match Retry Mechanism
+
+The \a Match \a Retry parameter configured by \ref DAP_TransferConfigure directly affects how \ref DAP_Transfer
+processes read operations that use the match mask and value match features.
+
+When a transfer uses the \a value \a match mechanism, the \a match \a mask previously set in the same \ref DAP_Transfer
+request is applied to the value read from the target register. The firmware compares (Register_Value & Match_Mask) with
+the provided Match_Value on each read. If the masked value does not equal the expected value, the controller will
+automatically retry the read until either the masked value matches or the configured \a Match \a Retry count is
+exhausted. If the retry limit is reached without a match, Bit 4 (\a Value \a Mismatch) is set in the response and the
+\ref DAP_Transfer command aborts. This behavior is governed by the \a Match \a Retry parameter documented in
+\ref DAP_TransferConfigure (see Match Retry: Number of retries on reads with Value Match in DAP_Transfer).
+
+### Usage Example
+
+A common use case for this mechanism is polling the Cortex-M debug registers via SWD. For example, reading a core
+register through the Debug Core Register Selector (DCRSR) requires writing the register identifier and then polling
+DHCSR until the S_REGRDY bit indicates the result is ready. The match mask/value match mechanism in \ref DAP_Transfer
+can implement this pattern without explicit looping in the host:
+
+- Call \ref DAP_TransferConfigure to set the retry behavior. Typical implementations use defaults of Idle Cycles = 0,
+  WAIT Retry = 100, and Match Retry set to a value sufficient for the expected polling duration. The Match Retry count
+  need only be set once; it persists until reconfigured.
+
+- Issue a \ref DAP_Transfer with a Transfer Count of at least two transfers in the same request. The first transfer
+  writes the match mask (using the Match Mask bit set in the request). The mask defines which bits in the read value
+  are relevant for comparison (for example, selecting the S_REGRDY bit). The second transfer performs the actual read
+  with the Value Match bit set and includes the expected Match_Value in the transfer data.
+
+### Efficient use of DAP Transfers for Core Register Reads
+
+By arranging the mask and value in a single \ref DAP_Transfer request, the firmware will repeatedly execute the read
+until the masked value matches or the retry limit is reached. The match mask remains in effect for subsequent transfers
+in the same request. Additional match value reads can follow within the same \ref DAP_Transfer request up to the
+protocol limit of 255 transfers, subject to USB packet size constraints. Combining multiple mask/value match pairs in
+this way can reduce USB overhead compared to separate transfers per read.
+
+This value match and retry mechanism applies only to \ref DAP_Transfer; it is not supported by \ref DAP_TransferBlock.
+There is no separate time-based timeout; the effective delay is determined by the configured Match Retry count and the
+speed of the underlying debug interface.
+
+For long sequences of transfers that must execute without USB round-trips between operations, the
+\ref DAP_QueueCommands_gr API exists; however, for typical polling reads using match mask/value match, queuing is not
+required.
 */
 
 
