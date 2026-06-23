@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['validate_20the_20debug_20unit_20operation_0',['Validate the debug unit operation',['../dap_validate.html',1,'']]],
-  ['vendor_20commands_1',['CMSIS-DAP Vendor Commands',['../group__DAP__Vendor__gr.html',1,'']]],
-  ['via_20usb_20bulk_20endpoints_2',['Communication via USB bulk endpoints',['../dap_firmware.html#dap_bulk_usb',1,'']]]
+  ['uart_20com_20commands_0',['UART COM Commands',['../group__DAP__uart__gr.html',1,'']]],
+  ['unit_1',['unit',['../dap_firmware.html#dap_config_io',1,'Configuring I/O ports and debug unit'],['../dap_firmware.html#dap_config_flash',1,'Programming into debug unit']]],
+  ['unit_20information_2',['CMSIS-DAP Debug Unit Information',['../group__DAP__Config__Debug__gr.html',1,'']]],
+  ['unit_20operation_3',['Validate the debug unit operation',['../dap_validate.html',1,'']]],
+  ['usage_20example_4',['Usage Example',['../group__DAP__transfer__gr.html#autotoc_md3',1,'']]],
+  ['usb_20bulk_20endpoints_5',['Communication via USB bulk endpoints',['../dap_firmware.html#dap_bulk_usb',1,'']]],
+  ['usb_20peripheral_6',['Configuring USB peripheral',['../dap_firmware.html#dap_config_usb',1,'']]],
+  ['use_20of_20dap_20transfers_20for_20core_20register_20reads_7',['Efficient use of DAP Transfers for Core Register Reads',['../group__DAP__transfer__gr.html#autotoc_md4',1,'']]]
 ];

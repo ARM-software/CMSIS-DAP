@@ -1,7 +1,7 @@
 var searchData=
 [
   ['i_20o_20pin_20access_0',['CMSIS-DAP Hardware I/O Pin Access',['../group__DAP__Config__PortIO__gr.html',1,'']]],
-  ['i_20o_20pin_20access_20functions_1',['DAP Hardware I/O Pin Access Functions',['../group__DAP__Config__PortIO__gr.html#autotoc_md14',1,'']]],
+  ['i_20o_20pin_20access_20functions_1',['DAP Hardware I/O Pin Access Functions',['../group__DAP__Config__PortIO__gr.html#autotoc_md17',1,'']]],
   ['i_20o_20ports_20and_20debug_20unit_2',['Configuring I/O ports and debug unit',['../dap_firmware.html#dap_config_io',1,'']]],
   ['implementations_3',['Example implementations',['../dap_firmware.html#dap_fw_examples',1,'']]],
   ['information_4',['CMSIS-DAP Debug Unit Information',['../group__DAP__Config__Debug__gr.html',1,'']]],

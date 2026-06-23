@@ -154,8 +154,24 @@ Content</h2></td></tr>
 <p>The Transfer Commands allow to:</p><ul>
 <li>Configure the parameters for information exchange with CoreSight registers.</li>
 <li>Transfer (read or write) a single data word or a data block with CoreSight registers.</li>
-<li>Terminate an active data transfer. </li>
+<li>Terminate an active data transfer.</li>
 </ul>
+<h3><a class="anchor" id="autotoc_md2"></a>
+Match Retry Mechanism</h3>
+<p>The <em class="arg">Match</em> <em class="arg">Retry</em> parameter configured by <a class="el" href="group__DAP__TransferConfigure.html">DAP_TransferConfigure</a> directly affects how <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> processes read operations that use the match mask and value match features.</p>
+<p>When a transfer uses the <em class="arg">value</em> <em class="arg">match</em> mechanism, the <em class="arg">match</em> <em class="arg">mask</em> previously set in the same <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> request is applied to the value read from the target register. The firmware compares (Register_Value &amp; Match_Mask) with the provided Match_Value on each read. If the masked value does not equal the expected value, the controller will automatically retry the read until either the masked value matches or the configured <em class="arg">Match</em> <em class="arg">Retry</em> count is exhausted. If the retry limit is reached without a match, Bit 4 (<em class="arg">Value</em> <em class="arg">Mismatch</em>) is set in the response and the <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> command aborts. This behavior is governed by the <em class="arg">Match</em> <em class="arg">Retry</em> parameter documented in <a class="el" href="group__DAP__TransferConfigure.html">DAP_TransferConfigure</a> (see Match Retry: Number of retries on reads with Value Match in DAP_Transfer).</p>
+<h3><a class="anchor" id="autotoc_md3"></a>
+Usage Example</h3>
+<p>A common use case for this mechanism is polling the Cortex-M debug registers via SWD. For example, reading a core register through the Debug Core Register Selector (DCRSR) requires writing the register identifier and then polling DHCSR until the S_REGRDY bit indicates the result is ready. The match mask/value match mechanism in <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> can implement this pattern without explicit looping in the host:</p>
+<ul>
+<li>Call <a class="el" href="group__DAP__TransferConfigure.html">DAP_TransferConfigure</a> to set the retry behavior. Typical implementations use defaults of Idle Cycles = 0, WAIT Retry = 100, and Match Retry set to a value sufficient for the expected polling duration. The Match Retry count need only be set once; it persists until reconfigured.</li>
+<li>Issue a <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> with a Transfer Count of at least two transfers in the same request. The first transfer writes the match mask (using the Match Mask bit set in the request). The mask defines which bits in the read value are relevant for comparison (for example, selecting the S_REGRDY bit). The second transfer performs the actual read with the Value Match bit set and includes the expected Match_Value in the transfer data.</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Efficient use of DAP Transfers for Core Register Reads</h3>
+<p>By arranging the mask and value in a single <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> request, the firmware will repeatedly execute the read until the masked value matches or the retry limit is reached. The match mask remains in effect for subsequent transfers in the same request. Additional match value reads can follow within the same <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a> request up to the protocol limit of 255 transfers, subject to USB packet size constraints. Combining multiple mask/value match pairs in this way can reduce USB overhead compared to separate transfers per read.</p>
+<p>This value match and retry mechanism applies only to <a class="el" href="group__DAP__Transfer.html">DAP_Transfer</a>; it is not supported by <a class="el" href="group__DAP__TransferBlock.html">DAP_TransferBlock</a>. There is no separate time-based timeout; the effective delay is determined by the configured Match Retry count and the speed of the underlying debug interface.</p>
+<p>For long sequences of transfers that must execute without USB round-trips between operations, the <a class="el" href="group__DAP__QueueCommands__gr.html">DAP_QueueCommands</a> API exists; however, for typical polling reads using match mask/value match, queuing is not required. </p>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

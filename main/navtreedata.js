@@ -45,7 +45,8 @@ var NAVTREE =
       [ "Additional requirements for Linux", "dap_drv_install.html#udevrules", null ],
       [ "Additional requirements for Windows", "dap_drv_install.html#win", null ]
     ] ],
-    [ "Validate the debug unit operation", "dap_validate.html", null ]
+    [ "Validate the debug unit operation", "dap_validate.html", null ],
+    [ "References", "topics.html", "topics" ]
   ] ]
 ];
 

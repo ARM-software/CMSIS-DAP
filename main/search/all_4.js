@@ -22,6 +22,7 @@ var searchData=
   ['configuring_20i_20o_20ports_20and_20debug_20unit_19',['Configuring I/O ports and debug unit',['../dap_firmware.html#dap_config_io',1,'']]],
   ['configuring_20usb_20peripheral_20',['Configuring USB peripheral',['../dap_firmware.html#dap_config_usb',1,'']]],
   ['conventions_20and_20command_20structure_21',['Conventions and Command Structure',['../group__DAP__Commands__gr.html#autotoc_md0',1,'']]],
-  ['cpu_5fclock_22',['CPU_CLOCK',['../group__DAP__Config__Debug__gr.html#ga512016e5f1966a8fd45b3f1a81ba5b8f',1,'DAP_config.h']]],
-  ['create_20firmware_20project_23',['Create firmware project',['../dap_firmware.html#dap_fw_prj',1,'']]]
+  ['core_20register_20reads_22',['Efficient use of DAP Transfers for Core Register Reads',['../group__DAP__transfer__gr.html#autotoc_md4',1,'']]],
+  ['cpu_5fclock_23',['CPU_CLOCK',['../group__DAP__Config__Debug__gr.html#ga512016e5f1966a8fd45b3f1a81ba5b8f',1,'DAP_config.h']]],
+  ['create_20firmware_20project_24',['Create firmware project',['../dap_firmware.html#dap_fw_prj',1,'']]]
 ];

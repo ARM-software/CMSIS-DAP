@@ -1,7 +1,7 @@
 var searchData=
 [
   ['access_0',['CMSIS-DAP Hardware I/O Pin Access',['../group__DAP__Config__PortIO__gr.html',1,'']]],
-  ['access_20functions_1',['DAP Hardware I/O Pin Access Functions',['../group__DAP__Config__PortIO__gr.html#autotoc_md14',1,'']]],
+  ['access_20functions_1',['DAP Hardware I/O Pin Access Functions',['../group__DAP__Config__PortIO__gr.html#autotoc_md17',1,'']]],
   ['access_20to_20cmsis_20dap_2',['Access to CMSIS-DAP',['../index.html#dap_access',1,'']]],
   ['additional_20requirements_20for_20linux_3',['Additional requirements for Linux',['../dap_drv_install.html#udevrules',1,'']]],
   ['additional_20requirements_20for_20windows_4',['Additional requirements for Windows',['../dap_drv_install.html#win',1,'']]],
