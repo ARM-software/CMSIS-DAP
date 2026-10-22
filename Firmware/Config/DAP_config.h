@@ -71,6 +71,10 @@ This information includes:
 /// This information is returned by the command \ref DAP_Info as part of <b>Capabilities</b>.
 #define DAP_JTAG                1               ///< JTAG Mode: 1 = available, 0 = not available.
 
+#ifndef DAP_CJTAG
+#define DAP_CJTAG               0
+#endif
+
 /// Configure maximum number of JTAG devices on the scan chain connected to the Debug Access Port.
 /// This setting impacts the RAM requirements of the Debug Unit. Valid range is 1 .. 255.
 #define DAP_JTAG_DEV_CNT        8U              ///< Maximum number of JTAG devices on scan chain.
@@ -308,6 +312,18 @@ Configures the DAP Hardware I/O pins for JTAG mode:
 __STATIC_INLINE void PORT_JTAG_SETUP (void) {
   ;
 }
+
+#if (DAP_CJTAG != 0)
+/** Setup cJTAG I/O pins and link.
+Configures the DAP Hardware I/O pins for cJTAG mode (TCKC/TMSC).
+The firmware only defines this hook: the cJTAG link protocol, for example the OScan1
+escape and connect sequence and the TAP.7 command level setup, is probe specific and is
+performed here by the probe implementation.
+*/
+__STATIC_INLINE void PORT_CJTAG_SETUP (void) {
+  ;
+}
+#endif
 
 /** Setup SWD I/O pins: SWCLK, SWDIO, and nRESET.
 Configures the DAP Hardware I/O pins for Serial Wire Debug (SWD) mode:

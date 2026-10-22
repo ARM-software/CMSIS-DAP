@@ -139,6 +139,7 @@
 #define DAP_PORT_DISABLED               0U      // Port Disabled (I/O pins in High-Z)
 #define DAP_PORT_SWD                    1U      // SWD Port (SWCLK, SWDIO) + nRESET
 #define DAP_PORT_JTAG                   2U      // JTAG Port (TCK, TMS, TDI, TDO, nTRST) + nRESET
+#define DAP_PORT_CJTAG                  3U      // cJTAG Port (TCK, TMS) + nRESET
 
 // DAP SWJ Pins
 #define DAP_SWJ_SWCLK_TCK               0       // SWCLK/TCK
@@ -250,7 +251,7 @@ typedef struct {
     uint8_t    data_phase;                      // Always generate Data Phase
   } swd_conf;
 #endif
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
   struct {                                      // JTAG Device Chain
     uint8_t   count;                            // Number of devices
     uint8_t   index;                            // Device index (device at TDO has index 0)
@@ -280,6 +281,13 @@ extern void     JTAG_IR         (uint32_t ir);
 extern uint32_t JTAG_ReadIDCode (void);
 extern void     JTAG_WriteAbort (uint32_t data);
 extern uint8_t  JTAG_Transfer   (uint32_t request, uint32_t *data);
+#if (DAP_CJTAG != 0)
+extern void     CJTAG_Sequence  (uint32_t info,  const uint8_t *tdi,  uint8_t *tdo);
+extern void     CJTAG_IR        (uint32_t ir);
+extern uint32_t CJTAG_ReadIDCode(void);
+extern void     CJTAG_WriteAbort(uint32_t data);
+extern uint8_t  CJTAG_Transfer  (uint32_t request, uint32_t *data);
+#endif
 extern uint8_t  SWD_Transfer    (uint32_t request, uint32_t *data);
 
 extern void     Delayms         (uint32_t delay);

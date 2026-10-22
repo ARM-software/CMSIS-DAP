@@ -52,6 +52,87 @@
          DAP_Data_t DAP_Data;           // DAP Data
 volatile uint8_t    DAP_TransferAbort;  // Transfer Abort Flag
 
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
+static inline void DAP_TAP_Sequence(uint32_t info, const uint8_t *tdi, uint8_t *tdo) {
+#if (DAP_CJTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_CJTAG) {
+    CJTAG_Sequence(info, tdi, tdo);
+    return;
+  }
+#endif
+#if (DAP_JTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_JTAG) {
+    JTAG_Sequence(info, tdi, tdo);
+  }
+#else
+  (void)info;
+  (void)tdi;
+  (void)tdo;
+#endif
+}
+
+static inline void DAP_TAP_IR(uint32_t ir) {
+#if (DAP_CJTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_CJTAG) {
+    CJTAG_IR(ir);
+    return;
+  }
+#endif
+#if (DAP_JTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_JTAG) {
+    JTAG_IR(ir);
+  }
+#else
+  (void)ir;
+#endif
+}
+
+static inline uint32_t DAP_TAP_ReadIDCode(void) {
+#if (DAP_CJTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_CJTAG) {
+    return CJTAG_ReadIDCode();
+  }
+#endif
+#if (DAP_JTAG != 0)
+  return JTAG_ReadIDCode();
+#else
+  return 0U;
+#endif
+}
+
+static inline void DAP_TAP_WriteAbort(uint32_t data) {
+#if (DAP_CJTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_CJTAG) {
+    CJTAG_WriteAbort(data);
+    return;
+  }
+#endif
+#if (DAP_JTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_JTAG) {
+    JTAG_WriteAbort(data);
+  }
+#else
+  (void)data;
+#endif
+}
+
+static inline uint8_t DAP_TAP_Transfer(uint32_t request, uint32_t *data) {
+#if (DAP_CJTAG != 0)
+  if (DAP_Data.debug_port == DAP_PORT_CJTAG) {
+    return CJTAG_Transfer(request, data);
+  }
+#endif
+#if (DAP_JTAG != 0)
+  return JTAG_Transfer(request, data);
+#else
+  (void)request;
+  (void)data;
+  return DAP_TRANSFER_ERROR;
+#endif
+}
+
+#endif
+
 
 static const char DAP_FW_Ver [] = DAP_FW_VER;
 
@@ -126,7 +207,8 @@ static uint8_t DAP_Info(uint8_t id, uint8_t *info) {
                 ((SWO_STREAM != 0U)      ? (1U << 6) : 0U) |
                 ((DAP_UART != 0U)        ? (1U << 7) : 0U);
 
-      info[1] = ((DAP_UART_USB_COM_PORT != 0) ? (1U << 0) : 0U);
+      info[1] = ((DAP_UART_USB_COM_PORT != 0) ? (1U << 0) : 0U) |
+            ((DAP_CJTAG != 0)             ? (1U << 1) : 0U);
       length = 2U;
       break;
     case DAP_ID_TIMESTAMP_CLOCK:
@@ -258,6 +340,12 @@ static uint32_t DAP_Connect(const uint8_t *request, uint8_t *response) {
     case DAP_PORT_JTAG:
       DAP_Data.debug_port = DAP_PORT_JTAG;
       PORT_JTAG_SETUP();
+      break;
+#endif
+#if (DAP_CJTAG != 0)
+    case DAP_PORT_CJTAG:
+      DAP_Data.debug_port = DAP_PORT_CJTAG;
+      PORT_CJTAG_SETUP();
       break;
 #endif
     default:
@@ -543,7 +631,7 @@ static uint32_t DAP_JTAG_Sequence(const uint8_t *request, uint8_t *response) {
   uint32_t response_count;
   uint32_t count;
 
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
   *response++ = DAP_OK;
 #else
   *response++ = DAP_ERROR;
@@ -559,12 +647,12 @@ static uint32_t DAP_JTAG_Sequence(const uint8_t *request, uint8_t *response) {
       count = 64U;
     }
     count = (count + 7U) / 8U;
-#if (DAP_JTAG != 0)
-    JTAG_Sequence(sequence_info, request, response);
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
+    DAP_TAP_Sequence(sequence_info, request, response);
 #endif
     request += count;
     request_count += count + 1U;
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
     if ((sequence_info & JTAG_SEQUENCE_TDO) != 0U) {
       response += count;
       response_count += count;
@@ -583,7 +671,7 @@ static uint32_t DAP_JTAG_Sequence(const uint8_t *request, uint8_t *response) {
 //             number of bytes in request (upper 16 bits)
 static uint32_t DAP_JTAG_Configure(const uint8_t *request, uint8_t *response) {
   uint32_t count;
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
   uint32_t length;
   uint32_t bits;
   uint32_t n;
@@ -619,10 +707,11 @@ static uint32_t DAP_JTAG_Configure(const uint8_t *request, uint8_t *response) {
 //   return:   number of bytes in response (lower 16 bits)
 //             number of bytes in request (upper 16 bits)
 static uint32_t DAP_JTAG_IDCode(const uint8_t *request, uint8_t *response) {
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
   uint32_t data;
 
-  if (DAP_Data.debug_port != DAP_PORT_JTAG) {
+  if ((DAP_Data.debug_port != DAP_PORT_JTAG) &&
+      (DAP_Data.debug_port != DAP_PORT_CJTAG)) {
     goto id_error;
   }
 
@@ -633,10 +722,10 @@ static uint32_t DAP_JTAG_IDCode(const uint8_t *request, uint8_t *response) {
   }
 
   // Select JTAG chain
-  JTAG_IR(JTAG_IDCODE);
+  DAP_TAP_IR(JTAG_IDCODE);
 
   // Read IDCODE register
-  data = JTAG_ReadIDCode();
+  data = DAP_TAP_ReadIDCode();
 
   // Store Data
   *(response+0) =  DAP_OK;
@@ -948,7 +1037,7 @@ end:
 //   response: pointer to response data
 //   return:   number of bytes in response (lower 16 bits)
 //             number of bytes in request (upper 16 bits)
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
 static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
   const
   uint8_t  *request_head;
@@ -1000,17 +1089,17 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
         if ((ir == request_ir) && ((request_value & DAP_TRANSFER_MATCH_VALUE) == 0U)) {
           // Read previous data and post next read
           do {
-            response_value = JTAG_Transfer(request_value, &data);
+            response_value = DAP_TAP_Transfer(request_value, &data);
           } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
         } else {
           // Select JTAG chain
           if (ir != JTAG_DPACC) {
             ir = JTAG_DPACC;
-            JTAG_IR(ir);
+            DAP_TAP_IR(ir);
           }
           // Read previous data
           do {
-            response_value = JTAG_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
+            response_value = DAP_TAP_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
           } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
           post_read = 0U;
         }
@@ -1046,12 +1135,12 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
         // Select JTAG chain
         if (ir != request_ir) {
           ir = request_ir;
-          JTAG_IR(ir);
+          DAP_TAP_IR(ir);
         }
         // Post DP/AP read
         retry = DAP_Data.transfer.retry_count;
         do {
-          response_value = JTAG_Transfer(request_value, NULL);
+          response_value = DAP_TAP_Transfer(request_value, NULL);
         } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
         if (response_value != DAP_TRANSFER_OK) {
           break;
@@ -1060,7 +1149,7 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
           // Read register until its value matches or retry counter expires
           retry = DAP_Data.transfer.retry_count;
           do {
-            response_value = JTAG_Transfer(request_value, &data);
+            response_value = DAP_TAP_Transfer(request_value, &data);
           } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
           if (response_value != DAP_TRANSFER_OK) {
             break;
@@ -1078,12 +1167,12 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
           // Select JTAG chain
           if (ir != request_ir) {
             ir = request_ir;
-            JTAG_IR(ir);
+            DAP_TAP_IR(ir);
           }
           // Post DP/AP read
           retry = DAP_Data.transfer.retry_count;
           do {
-            response_value = JTAG_Transfer(request_value, NULL);
+            response_value = DAP_TAP_Transfer(request_value, NULL);
           } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
           if (response_value != DAP_TRANSFER_OK) {
             break;
@@ -1107,12 +1196,12 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
         // Select JTAG chain
         if (ir != JTAG_DPACC) {
           ir = JTAG_DPACC;
-          JTAG_IR(ir);
+          DAP_TAP_IR(ir);
         }
         // Read previous data
         retry = DAP_Data.transfer.retry_count;
         do {
-          response_value = JTAG_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
+          response_value = DAP_TAP_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
         } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
         if (response_value != DAP_TRANSFER_OK) {
           break;
@@ -1138,12 +1227,12 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
         // Select JTAG chain
         if (ir != request_ir) {
           ir = request_ir;
-          JTAG_IR(ir);
+          DAP_TAP_IR(ir);
         }
         // Write DP/AP register
         retry = DAP_Data.transfer.retry_count;
         do {
-          response_value = JTAG_Transfer(request_value, &data);
+          response_value = DAP_TAP_Transfer(request_value, &data);
         } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
         if (response_value != DAP_TRANSFER_OK) {
           break;
@@ -1186,13 +1275,13 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
     // Select JTAG chain
     if (ir != JTAG_DPACC) {
       ir = JTAG_DPACC;
-      JTAG_IR(ir);
+      DAP_TAP_IR(ir);
     }
     if (post_read) {
       // Read previous data
       retry = DAP_Data.transfer.retry_count;
       do {
-        response_value = JTAG_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
+        response_value = DAP_TAP_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, &data);
       } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
       if (response_value != DAP_TRANSFER_OK) {
         goto end;
@@ -1206,7 +1295,7 @@ static uint32_t DAP_JTAG_Transfer(const uint8_t *request, uint8_t *response) {
       // Check last write
       retry = DAP_Data.transfer.retry_count;
       do {
-        response_value = JTAG_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, NULL);
+        response_value = DAP_TAP_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, NULL);
       } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
     }
   }
@@ -1275,6 +1364,11 @@ static uint32_t DAP_Transfer(const uint8_t *request, uint8_t *response) {
 #endif
 #if (DAP_JTAG != 0)
     case DAP_PORT_JTAG:
+      num = DAP_JTAG_Transfer(request, response);
+      break;
+#endif
+#if (DAP_CJTAG != 0)
+    case DAP_PORT_CJTAG:
       num = DAP_JTAG_Transfer(request, response);
       break;
 #endif
@@ -1390,7 +1484,7 @@ end:
 //   request:  pointer to request data
 //   response: pointer to response data
 //   return:   number of bytes in response
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
 static uint32_t DAP_JTAG_TransferBlock(const uint8_t *request, uint8_t *response) {
   uint32_t  request_count;
   uint32_t  request_value;
@@ -1425,13 +1519,13 @@ static uint32_t DAP_JTAG_TransferBlock(const uint8_t *request, uint8_t *response
 
   // Select JTAG chain
   ir = (request_value & DAP_TRANSFER_APnDP) ? JTAG_APACC : JTAG_DPACC;
-  JTAG_IR(ir);
+  DAP_TAP_IR(ir);
 
   if ((request_value & DAP_TRANSFER_RnW) != 0U) {
     // Post read
     retry = DAP_Data.transfer.retry_count;
     do {
-      response_value = JTAG_Transfer(request_value, NULL);
+      response_value = DAP_TAP_Transfer(request_value, NULL);
     } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
     if (response_value != DAP_TRANSFER_OK) {
       goto end;
@@ -1442,13 +1536,13 @@ static uint32_t DAP_JTAG_TransferBlock(const uint8_t *request, uint8_t *response
       if (request_count == 0U) {
         // Last read
         if (ir != JTAG_DPACC) {
-          JTAG_IR(JTAG_DPACC);
+          DAP_TAP_IR(JTAG_DPACC);
         }
         request_value = DP_RDBUFF | DAP_TRANSFER_RnW;
       }
       retry = DAP_Data.transfer.retry_count;
       do {
-        response_value = JTAG_Transfer(request_value, &data);
+        response_value = DAP_TAP_Transfer(request_value, &data);
       } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
       if (response_value != DAP_TRANSFER_OK) {
         goto end;
@@ -1472,7 +1566,7 @@ static uint32_t DAP_JTAG_TransferBlock(const uint8_t *request, uint8_t *response
       // Write DP/AP register
       retry = DAP_Data.transfer.retry_count;
       do {
-        response_value = JTAG_Transfer(request_value, &data);
+        response_value = DAP_TAP_Transfer(request_value, &data);
       } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
       if (response_value != DAP_TRANSFER_OK) {
         goto end;
@@ -1481,11 +1575,11 @@ static uint32_t DAP_JTAG_TransferBlock(const uint8_t *request, uint8_t *response
     }
     // Check last write
     if (ir != JTAG_DPACC) {
-      JTAG_IR(JTAG_DPACC);
+      DAP_TAP_IR(JTAG_DPACC);
     }
     retry = DAP_Data.transfer.retry_count;
     do {
-      response_value = JTAG_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, NULL);
+      response_value = DAP_TAP_Transfer(DP_RDBUFF | DAP_TRANSFER_RnW, NULL);
     } while ((response_value == DAP_TRANSFER_WAIT) && retry-- && !DAP_TransferAbort);
   }
 
@@ -1515,6 +1609,11 @@ static uint32_t DAP_TransferBlock(const uint8_t *request, uint8_t *response) {
 #endif
 #if (DAP_JTAG != 0)
     case DAP_PORT_JTAG:
+      num = DAP_JTAG_TransferBlock(request, response);
+      break;
+#endif
+#if (DAP_CJTAG != 0)
+    case DAP_PORT_CJTAG:
       num = DAP_JTAG_TransferBlock(request, response);
       break;
 #endif
@@ -1565,7 +1664,7 @@ static uint32_t DAP_SWD_WriteAbort(const uint8_t *request, uint8_t *response) {
 //   request:  pointer to request data
 //   response: pointer to response data
 //   return:   number of bytes in response
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
 static uint32_t DAP_JTAG_WriteAbort(const uint8_t *request, uint8_t *response) {
   uint32_t data;
 
@@ -1577,7 +1676,7 @@ static uint32_t DAP_JTAG_WriteAbort(const uint8_t *request, uint8_t *response) {
   }
 
   // Select JTAG chain
-  JTAG_IR(JTAG_ABORT);
+  DAP_TAP_IR(JTAG_ABORT);
 
   // Load data
   data = (uint32_t)(*(request+1) <<  0) |
@@ -1586,7 +1685,7 @@ static uint32_t DAP_JTAG_WriteAbort(const uint8_t *request, uint8_t *response) {
          (uint32_t)(*(request+4) << 24);
 
   // Write Abort register
-  JTAG_WriteAbort(data);
+  DAP_TAP_WriteAbort(data);
 
   *response = DAP_OK;
   return (1U);
@@ -1610,6 +1709,11 @@ static uint32_t DAP_WriteAbort(const uint8_t *request, uint8_t *response) {
 #endif
 #if (DAP_JTAG != 0)
     case DAP_PORT_JTAG:
+      num = DAP_JTAG_WriteAbort(request, response);
+      break;
+#endif
+#if (DAP_CJTAG != 0)
+    case DAP_PORT_CJTAG:
       num = DAP_JTAG_WriteAbort(request, response);
       break;
 #endif
@@ -1805,7 +1909,7 @@ void DAP_Setup(void) {
   DAP_Data.swd_conf.turnaround  = 1U;
   DAP_Data.swd_conf.data_phase  = 0U;
 #endif
-#if (DAP_JTAG != 0)
+#if ((DAP_JTAG != 0) || (DAP_CJTAG != 0))
   DAP_Data.jtag_dev.count = 0U;
 #endif
 
