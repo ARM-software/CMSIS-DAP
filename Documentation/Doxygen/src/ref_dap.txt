@@ -403,6 +403,9 @@ UART Communication Port support:
 UART Communication via USB COM Port support:
  - Info1 - Bit 0: <b>1 = USB COM Port</b> is implemented (0 = not implemented).
 
+Firmware-specific cJTAG extension (not part of the CMSIS-DAP v2.1.2 specification):
+ - Info1 - Bit 1: <b>1 = cJTAG</b> is implemented (0 = not implemented).
+
 <hr>
 
 <b>DAP_Info Response (for ID=0xF1):</b>
@@ -462,7 +465,11 @@ This status information may be displayed on the Debug Unit. Therefore a Debug Un
 \details
 The <b>DAP_Connect Command</b> initializes the DAP I/O pins for the specified DAP mode (JTAG or
 SWD). This command calls the function \ref PORT_SWD_SETUP or \ref PORT_JTAG_SETUP which prepares the
-connection to the Target Device.
+connection to the Target Device. Firmware implementations may additionally provide a cJTAG extension
+using \ref PORT_CJTAG_SETUP; this extension is not part of the CMSIS-DAP v2.1.2 specification.
+The firmware only defines the cJTAG port and the backend entry points, the wire-level link protocol
+(for example the OScan1 escape and connect sequence) is probe specific and is performed by the probe
+inside \ref PORT_CJTAG_SETUP.
 
 <b>DAP_Connect Command:</b>
 \code
@@ -475,6 +482,10 @@ connection to the Target Device.
   - 0 = Default mode: configuration of the DAP port mode is derived from \ref DAP_DEFAULT_PORT (zero configuration).
   - 1 = SWD mode: connect with Serial Wire Debug mode.
   - 2 = JTAG mode: connect with 4/5-pin JTAG mode.
+  - 3 = cJTAG mode: firmware-specific extension using the two-wire TCKC/TMSC interface. The firmware
+        only selects the cJTAG port and calls \ref PORT_CJTAG_SETUP; the cJTAG link protocol, for
+        example the OScan1 escape and connect sequence and the TAP.7 command level setup, is
+        implemented by the probe in this function.
 
 
 <b>DAP_Connect Response:</b>
@@ -488,6 +499,8 @@ connection to the Target Device.
   - 0 = initialization failed; no mode pre-configured.
   - 1 = initialization for SWD mode.
   - 2 = initialization for JTAG mode.
+  - 3 = initialization for cJTAG mode when the firmware-specific extension is enabled, including the
+        cJTAG link setup performed by \ref PORT_CJTAG_SETUP.
 */
 
 

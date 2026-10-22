@@ -17,6 +17,7 @@ Folders and Files                     | Description
 The implementation is composed of the following components:
 
  - CMSIS-DAP firmware that interfaces to JTAG or SWD pins using standard I/O pins of the Cortex-M device.
+ - An optional cJTAG firmware extension that uses a two-wire TCKC/TMSC target interface.
  - CMSIS-Driver USART that connects:
    - the UART of the Cortex-M device to the SWO output from the target.
    - an additional UART of the Cortex-M device to the UART from the target.
@@ -34,7 +35,7 @@ The CMSIS-DAP firmware is designed for debug units that fulfill the following ha
  - RAM: 8 KB or more.
  - Flash ROM: 16 KB or more.
  - Full-speed or High-speed USB Device peripheral.
- - 7 standard I/O pins for JTAG/SWD interface.
+ - 7 standard I/O pins for the JTAG/SWD interface, or the pins required by the selected debug transport.
  - Optionally, 2 I/O pins for status LEDs.
  - Optionally, a UART to support SWO capturing (Rx pin connected to SWO).
  - Optionally, a UART to support an additional UART communication port (for printf debugging).
@@ -88,6 +89,12 @@ In Keil MDK, changing the microcontroller adds relevant software components for 
 ## Configuring I/O ports and debug unit {#dap_config_io}
 
 The CMSIS-DAP firmware configuration file `DAP_config.h` provides the interface functions and configuration parameters for the hardware of the CMSIS-DAP debug unit. Refer to \ref DAP_ConfigIO_gr for detailed descriptions of available configuration options.
+
+The firmware also provides an optional cJTAG extension. Set `DAP_CJTAG` to `1` in the project configuration header to enable it; it can be enabled independently of `DAP_JTAG`, so a debug unit that only supports cJTAG does not need to provide the JTAG signals. The project must implement `PORT_CJTAG_SETUP` and the cJTAG backend functions declared in `DAP.h`. The template `DAP_config.h` supplies an empty `PORT_CJTAG_SETUP` hook.
+
+> **Note**
+>  - The firmware only defines the cJTAG port, the `PORT_CJTAG_SETUP` hook, and the `CJTAG_*` backend entry points. The cJTAG link protocol itself is not implemented in the CMSIS-DAP firmware: it is probe specific and is executed by the probe inside `PORT_CJTAG_SETUP`, for example the OScan1 escape and connect sequence and the TAP.7 command level setup.
+>  - The Connect port value and the Capabilities bit used by this extension are implementation-specific and are not part of the CMSIS-DAP v2.1.2 specification.
 
 ## Enabling SWO trace {#dap_usart_swo}
 

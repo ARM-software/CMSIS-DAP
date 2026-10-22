@@ -11,7 +11,7 @@ CMSIS-DAP support can be implemented in a standalone debug unit, or also as a co
 
 ![CMSIS-DAP Interface](./images/CMSIS_DAP_INTERFACE.png)
 
-Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wired Debug (SWD) interface. Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.
+Connection with the target processor is possible over the physical interfaces supported by the CoreSight DAP: a 5-pin JTAG or a 2-pin Serial Wire Debug (SWD) interface. Firmware may optionally provide cJTAG as an implementation-specific extension; cJTAG is not part of the CMSIS-DAP v2.1.2 specification. Additionally it can expose access to a UART for serial-to-USB communication. CMSIS-DAP supports target devices that contain one or more Arm Cortex cores.
 
 For communication with the debugging program the USB connection is used. A broad set of \ref DAP_Commands_gr enables uniform support for CMSIS-DAP independent on the actual probe.
 
